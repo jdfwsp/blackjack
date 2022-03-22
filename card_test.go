@@ -65,3 +65,22 @@ func TestJokers(t *testing.T) {
 		t.Error("Expected 3 Jokers, got: ", count)
 	}
 }
+
+func TestFilter(t *testing.T) {
+	filter := func(card Card) bool {
+		return card.Rank == Two || card.Rank == Three
+	}
+	cards := New(Filter(filter))
+	for _, c := range cards {
+		if c.Rank == Two || c.Rank == Three {
+			t.Error("expected all 2 and 3 to be filtered out")
+		}
+	}
+}
+
+func TestDeck(t *testing.T) {
+	cards := New(Deck(3))
+	if len(cards) != 13*4*3 {
+		t.Errorf("expected %d cards, got %d", 13*4*3, len(cards))
+	}
+}
