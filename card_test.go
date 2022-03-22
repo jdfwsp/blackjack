@@ -42,3 +42,26 @@ func TestSort(t *testing.T) {
 		t.Error("expected Ace of Spades, got: ", cards[0])
 	}
 }
+
+func TestShuffle(t *testing.T) {
+	cards := New()
+	fmt.Println("New: ", cards[0])
+
+	cards = New(DefaultSort)
+	fmt.Println("Default Sort: ", cards[0])
+	cards = New(Shuffle)
+	fmt.Println("Shuffle: ", cards[0])
+}
+
+func TestJokers(t *testing.T) {
+	cards := New(Jokers(3))
+	count := 0
+	for _, c := range cards {
+		if c.Suit == Joker {
+			count++
+		}
+	}
+	if count != 3 {
+		t.Error("Expected 3 Jokers, got: ", count)
+	}
+}
